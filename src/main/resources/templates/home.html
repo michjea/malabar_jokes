@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+
+<body>
+    <div class="container">
+        <!-- navbar with logo, login and new joke -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">MalabarJokes</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="/new-joke">New Joke</a>
+                    
+                    <!-- if user is logged in, logout link -->
+                    <a class="nav-item nav-link" th:if="${user != null}" th:href="@{/logout}">Logout</a>
+
+                    <a class="nav-item nav-link" href="/login">Login</a>
+                </div>
+            </div>
+        </nav>
+        <!-- if no jokes, display message -->
+        <div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" th:if="${joke != null}">
+                        <h5 class="card-title" th:if="${joke != null}" th:text="${joke.title}"></h5>
+                    </div>
+                    <div class="card-body" th:if="${joke != null}">
+                        <p class="card-text" th:if="${joke != null}" th:text="${joke.content}"></p>
+                    </div>
+                    <div class="card-footer" th:if="${joke != null}">
+                        <small class="text-muted" th:if="${joke != null}" th:text="${joke.date}"></small>
+                    </div>
+
+                    <div class="card-body" th:if="${joke == null}">
+                        <h5 class="card-title" >No jokes yet</h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- if joke is null, new joke button -->
+            <a class="btn btn-primary" th:href="@{/new-joke}" th:if="${joke == null}">New Joke</a>
+            <!-- if joke is not null, next joke button -->
+            <a class="btn btn-primary" th:href="@{/}" th:if="${joke != null}">Next Joke</a>
+        </div>
+    </div>
+    <!--  js bootstrap dependencies -->
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+</body>
+
+</html>
