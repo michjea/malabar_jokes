@@ -1,0 +1,50 @@
+<!-- Menu fragment -->
+<div th:fragment="menu">
+  <nav
+    class="navbar navbar-expand-lg navbar-light"
+    style="background-color: #e1bee7; color: #e91e63"
+  >
+    <a class="navbar-brand" href="/" style="color: #e91e63; font-weight: bold"
+      >MalabarJokes</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <div sec:authorize="isAuthenticated()">
+          <a class="nav-item nav-link" href="/logout" style="color: #e91e63"
+            >Logout</a
+          >
+          <!--<form action="#" th:action="@{/logout}" method="post">
+            <input
+              type="submit"
+              value="Logout"
+              style="
+                background-color: #e1bee7;
+                color: #e91e63;
+                font-weight: bold;
+              "
+            />
+          </form>-->
+        </div>
+        <div sec:authorize="isAnonymous()">
+          <a class="nav-item nav-link" href="/login" style="color: #e91e63"
+            >Login</a
+          >
+        </div>
+        <a class="nav-item nav-link" href="/new-joke" style="color: #e91e63"
+          >New Joke</a
+        >
+      </div>
+    </div>
+  </nav>
+</div>

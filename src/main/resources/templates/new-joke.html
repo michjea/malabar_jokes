@@ -1,58 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>New Joke</title>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
-</head>
+    <link
+      th:rel="stylesheet"
+      th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "
+    />
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <!--  **************** logout ****************** -->
-<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()"> 
-    Utilisateur: <span sec:authentication="name">[]</span>
-    Roles: <span sec:authentication="principal.authorities"></span> 
-<div>
-<form action="#" th:action="@{/logout}" method="post"> 
-    <input type="submit" value="Logout" />
-</form>
-</div>
-</div>
-        <!-- navbar with logo, login and new joke -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">MalabarJokes</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="/new-joke">New Joke</a>
-                    <a class="nav-item nav-link" href="#">Login</a>
+      <!-- navbar with logo, login and new joke -->
+      <div th:replace="fragments/menu :: menu"></div>
+
+      <!-- form to create a new joke -->
+      <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-8 m-5">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">New Joke</h3>
+            </div>
+            <div class="card-body">
+              <form
+                action="#"
+                th:action="@{/save-joke}"
+                th:object="${joke}"
+                method="post"
+              >
+                <!-- Add title input -->
+                <div class="form-group">
+                  <label for="title">Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    th:field="*{title}"
+                  />
                 </div>
+                <div class="form-group">
+                  <label for="content">Joke</label>
+                  <textarea
+                    class="form-control"
+                    id="content"
+                    name="content"
+                    rows="3"
+                    th:field="*{content}"
+                  ></textarea>
+                  <!-- Hidden field with logged in user name as value -->
+                  <input
+                    type="hidden"
+                    name="username"
+                    th:value="${#authentication.name}"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn"
+                  style="
+                    background-color: #f3e5f5;
+                    border-color: #e91e63;
+                    color: #e91e63;
+                  "
+                >
+                  Post joke
+                </button>
+              </form>
             </div>
-        </nav>
-        <!-- form to create a new joke -->
-        <div class="row">
-            <div class="col-md-12">
-                <form action="#" th:action="@{/save-joke}" th:object="${joke}" method="post">
-                    <!-- Add title input -->
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" name="title" th:field="*{title}">
-                    </div>
-                    <div class="form-group">
-                        <label for="content">Joke</label>
-                        <textarea class="form-control" id="content" name="content" rows="3" th:field="*{content}"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Post joke</button>
-                </form>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
     <!--  js bootstrap dependencies -->
     <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
-</body>
+  </body>
 </html>

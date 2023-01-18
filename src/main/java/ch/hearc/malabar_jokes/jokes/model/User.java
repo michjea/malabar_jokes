@@ -1,8 +1,10 @@
 package ch.hearc.malabar_jokes.jokes.model;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,12 +14,21 @@ import javax.persistence.Table;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Profile(value = "secure-db")
 @Entity
 @Table(name = "User")
 public class User implements UserDetails {
+
+    public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public int getId() {
         return id;
@@ -62,18 +73,19 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(unique = true)
     private String username;
     private String password;
-    private boolean active;
-    private String roles;
+    private boolean active = true;
+    private String roles = "USER";
 
     @OneToMany(mappedBy = "user")
     private List<Joke> jokes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO Auto-generated method stub
-        return null;
+        return Collections.<GrantedAuthority>singletonList(new SimpleGrantedAuthority("User"));
     }
 
     @Override
@@ -85,27 +97,24 @@ public class User implements UserDetails {
     @Override
     public boolean isAccountNonExpired() {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
-
-    // getters and setters
-
 }

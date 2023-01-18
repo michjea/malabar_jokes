@@ -23,6 +23,28 @@ public class Joke {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    public Joke() {
+    }
+
+    public Joke(String title, String content, String date, User user) {
+        this.title = title;
+        this.content = content;
+        this.date = date;
+        this.user = user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getUserName() {
+        return user.getUserName();
+    }
+
+    public int getUserId() {
+        return user.getId();
+    }
+
     public String getTitle() {
         return title;
     }
