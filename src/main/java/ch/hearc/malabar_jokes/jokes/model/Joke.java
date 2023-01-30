@@ -41,7 +41,7 @@ public class Joke {
         return user.getUserName();
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return user.getId();
     }
 
@@ -67,5 +67,13 @@ public class Joke {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public Object getId() {
+        return id;
+    }
+
+    public Joke get() {
+        return this;
     }
 }

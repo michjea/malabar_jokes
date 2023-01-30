@@ -10,4 +10,6 @@ public interface JokesService {
     public List<Joke> getJokes();
 
     public Joke getRandomJoke();
+
+    public Joke getJokeById(Object id);
 }

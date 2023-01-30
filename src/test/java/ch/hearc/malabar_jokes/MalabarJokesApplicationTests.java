@@ -8,6 +8,7 @@ class MalabarJokesApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

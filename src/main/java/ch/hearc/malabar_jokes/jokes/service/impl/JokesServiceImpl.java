@@ -36,4 +36,8 @@ public class JokesServiceImpl implements JokesService {
         int randomIndex = (int) (Math.random() * jokes.size());
         return jokes.get(randomIndex);
     }
+
+    public Joke getJokeById(Object id) {
+        return jokeRepository.findById((Long) id).get();
+    }
 }
