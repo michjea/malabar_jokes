@@ -48,11 +48,11 @@ public class JokesController {
     public String showHomePage(Model model) {
         Joke joke = jokesService.getRandomJoke();
 
-        System.out.println(joke.getUserName());
+        System.out.println(joke.getUsername());
 
         model.addAttribute("joke", joke);
         // add username attribute
-        model.addAttribute("username", joke.getUserName());
+        model.addAttribute("username", joke.getUsername());
 
         // model.addAttribute("jokes", jokesService.getJokes());
         return "home";

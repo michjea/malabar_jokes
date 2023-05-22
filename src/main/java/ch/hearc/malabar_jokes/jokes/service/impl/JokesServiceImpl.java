@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ch.hearc.malabar_jokes.jokes.model.Joke;
+import ch.hearc.malabar_jokes.jokes.model.User;
 import ch.hearc.malabar_jokes.jokes.repository.JokeRepository;
 import ch.hearc.malabar_jokes.jokes.service.JokesService;
 import java.util.List;
@@ -39,5 +40,19 @@ public class JokesServiceImpl implements JokesService {
 
     public Joke getJokeById(Object id) {
         return jokeRepository.findById((Long) id).get();
+    }
+
+    public void deleteJokeById(long id) {
+        jokeRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Joke> getJokesByUser(User user) {
+        return jokeRepository.findByUser(user);
+    }
+
+    @Override
+    public void saveJoke(Joke joke) {
+        jokeRepository.save(joke);
     }
 }

@@ -37,8 +37,8 @@ public class Joke {
         this.user = user;
     }
 
-    public String getUserName() {
-        return user.getUserName();
+    public String getUsername() {
+        return user.getUsername();
     }
 
     public Long getUserId() {
